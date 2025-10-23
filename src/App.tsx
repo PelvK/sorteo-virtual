@@ -2,14 +2,28 @@ import { useState, useEffect } from 'react';
 import { ZoneGrid } from './components/ZoneGrid';
 import { BallCage } from './components/BallCage';
 import { ControlPanel } from './components/ControlPanel';
-import { DrawConfig, Zone, Team } from './types';
+import { CategoryConfigPanel } from './components/CategoryConfig';
+import { DrawConfig, Zone, CategoryConfig } from './types';
 import { supabase } from './lib/supabase';
 import './App.css';
+
+const CATEGORY_CONFIGS: CategoryConfig[] = [
+  { year: 2010, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2011, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2012, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2013, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2014, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2015, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2016, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2017, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+  { year: 2018, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
+];
 
 const INITIAL_CONFIG: DrawConfig = {
   numZones: 6,
   ballCages: [[], [], [], []],
   drawOrder: [],
+  category: 2010,
 };
 
 function App() {
@@ -19,11 +33,17 @@ function App() {
   const [currentDrawIndex, setCurrentDrawIndex] = useState(0);
   const [activeCage, setActiveCage] = useState<number | null>(null);
   const [currentTeam, setCurrentTeam] = useState<string | null>(null);
+  const [currentCategory, setCurrentCategory] = useState<number>(2010);
+  const [categoryConfigs, setCategoryConfigs] = useState<CategoryConfig[]>(CATEGORY_CONFIGS);
+
+  useEffect(() => {
+    loadCategoryConfigs();
+  }, []);
 
   useEffect(() => {
     initializeZones(config.numZones);
-    loadConfig();
-  }, []);
+    loadConfig(currentCategory);
+  }, [currentCategory]);
 
   useEffect(() => {
     if (zones.length !== config.numZones) {
@@ -41,23 +61,62 @@ function App() {
     setZones(newZones);
   };
 
-  const loadConfig = async () => {
+  const loadCategoryConfigs = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('category_configs')
+        .select('*')
+        .order('year', { ascending: true });
+
+      if (error) {
+        console.error('Error loading category configs:', error);
+        return;
+      }
+
+      if (data && data.length > 0) {
+        const loadedConfigs = data.map(d => ({
+          year: d.year,
+          numZones: d.num_zones,
+          ballCageTeams: d.ball_cage_teams,
+        }));
+        setCategoryConfigs(loadedConfigs);
+      }
+    } catch (error) {
+      console.error('Error loading category configs:', error);
+    }
+  };
+
+  const loadConfig = async (category: number) => {
     try {
       const { data, error } = await supabase
         .from('draw_configs')
         .select('*')
+        .eq('category', category)
         .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error loading config:', error);
+      }
 
       if (data) {
         setConfig({
           numZones: data.num_zones,
           ballCages: data.ball_cages,
           drawOrder: data.draw_order,
+          category: data.category,
         });
+      } else {
+        const categoryConfig = categoryConfigs.find(c => c.year === category);
+        if (categoryConfig) {
+          setConfig({
+            numZones: categoryConfig.numZones,
+            ballCages: [[], [], [], []],
+            drawOrder: [],
+            category: category,
+          });
+        }
       }
     } catch (error) {
       console.error('Error loading config:', error);
@@ -72,6 +131,7 @@ function App() {
           num_zones: newConfig.numZones,
           ball_cages: newConfig.ballCages,
           draw_order: newConfig.drawOrder,
+          category: newConfig.category || currentCategory,
         });
 
       if (error) throw error;
@@ -83,6 +143,22 @@ function App() {
   const handleConfigChange = (newConfig: DrawConfig) => {
     setConfig(newConfig);
     saveConfig(newConfig);
+  };
+
+  const handleCategoryChange = (category: number) => {
+    setCurrentCategory(category);
+    handleReset();
+  };
+
+  const handleCategoryConfigsChange = (newConfigs: CategoryConfig[]) => {
+    setCategoryConfigs(newConfigs);
+    const currentCategoryConfig = newConfigs.find(c => c.year === currentCategory);
+    if (currentCategoryConfig && currentCategoryConfig.numZones !== config.numZones) {
+      setConfig({
+        ...config,
+        numZones: currentCategoryConfig.numZones,
+      });
+    }
   };
 
   const handleStartDraw = () => {
@@ -126,9 +202,9 @@ function App() {
     const availableZones = zones.filter(zone => zone.teams[rowIndex] === null);
 
     if (availableZones.length > 0) {
-      const randomZone = availableZones[Math.floor(Math.random() * availableZones.length)];
+      const nextZone = availableZones[0];
       const updatedZones = zones.map(zone => {
-        if (zone.id === randomZone.id) {
+        if (zone.id === nextZone.id) {
           const updatedTeams = [...zone.teams];
           updatedTeams[rowIndex] = currentTeam;
           return { ...zone, teams: updatedTeams };
@@ -160,6 +236,21 @@ function App() {
     <div className="app">
       <header className="app-header">
         <h1 className="app-title">Sorteo de Equipos por Categoría</h1>
+        <div className="category-selector">
+          <label htmlFor="category">Categoría:</label>
+          <select
+            id="category"
+            value={currentCategory}
+            onChange={(e) => handleCategoryChange(parseInt(e.target.value))}
+            disabled={isDrawing}
+          >
+            {categoryConfigs.map((cat) => (
+              <option key={cat.year} value={cat.year}>
+                {cat.year}
+              </option>
+            ))}
+          </select>
+        </div>
       </header>
 
       <main className="app-main">
@@ -177,6 +268,12 @@ function App() {
           ))}
         </div>
       </main>
+
+      <CategoryConfigPanel
+        categories={categoryConfigs}
+        onCategoriesChange={handleCategoryConfigsChange}
+        isDrawing={isDrawing}
+      />
 
       <ControlPanel
         config={config}

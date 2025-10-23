@@ -14,4 +14,11 @@ export interface DrawConfig {
   numZones: number;
   ballCages: Team[][];
   drawOrder: string[];
+  category?: number;
+}
+
+export interface CategoryConfig {
+  year: number;
+  numZones: number;
+  ballCageTeams: number[];
 }

@@ -25,6 +25,10 @@ body {
   text-align: center;
   border-bottom: 3px solid rgba(255, 215, 0, 0.3);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
 .app-title {
@@ -77,6 +81,51 @@ body {
   }
 }
 
+.category-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 215, 0, 0.1);
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.category-selector label {
+  color: #ffd700;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.category-selector select {
+  background: rgba(0, 0, 0, 0.6);
+  color: #ffd700;
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-selector select:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.category-selector select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.category-selector select option {
+  background: #1a1a1a;
+  color: #ffd700;
+}
+
 @media (max-width: 480px) {
   .app-title {
     font-size: 22px;
@@ -85,5 +134,20 @@ body {
 
   .ball-cages-container {
     gap: 20px;
+  }
+
+  .category-selector {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 16px;
+  }
+
+  .category-selector label {
+    font-size: 14px;
+  }
+
+  .category-selector select {
+    font-size: 14px;
+    padding: 6px 12px;
   }
 }

@@ -1,0 +1,9 @@
+## Falta crear
+
+# Togglear entre orden controlado (actual) y orden aleatorio
+
+# Si en una categoría ya se realizó una vez el sorteo, que al seleccionarla aparezcan los equipos distribuidos ya, en caso de cancelar sorteo, se vuelve al estado con los bombos y orden preparado para sortear
+
+# Algun atajo para esconder los botones de control
+
+# Mejora en la UI
