@@ -124,14 +124,18 @@
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  max-width: 200px;
+  max-width: 300px;
   word-wrap: break-word;
-  max-lines: 3;
-  text-overflow: ellipsis;
   align-self: center;
   vertical-align: middle;
   justify-content: center;
   flex: 1;
   height: 100%;
   align-content: center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

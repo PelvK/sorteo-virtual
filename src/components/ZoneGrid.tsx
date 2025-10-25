@@ -8,6 +8,7 @@ interface ZoneGridProps {
 
 export function ZoneGrid({ zones }: ZoneGridProps) {
   return (
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     <div className="zone-grid" style={{ ['--card-count' as any]: zones.length }}>
       {zones.map((zone) => (
         <ZoneCard key={zone.id} zoneName={zone.name} teams={zone.teams} />

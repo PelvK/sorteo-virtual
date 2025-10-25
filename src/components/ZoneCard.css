@@ -6,10 +6,8 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2);
   transition: transform 0.3s ease;
   box-sizing: border-box;
-  .zone-card {
-  flex: 1;
-  max-width: calc((100% - (30px * (var(--card-count) - 1))) / var(--card-count));
-}
+  flex: 1 1 0;
+  min-width: 0;
 }
 
 
