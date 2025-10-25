@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .cage-label {
@@ -16,16 +16,16 @@
 
 .ball-cage {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .cage-circle {
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
   border: 4px solid #000000;
@@ -47,11 +47,11 @@
 }
 
 .cage-inner {
-  width: 110px;
-  height: 110px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, #ffed4e, #ffd700);
   display: flex;
+  background: transparent;
   align-items: center;
   justify-content: center;
   border: 3px solid rgba(0, 0, 0, 0.2);
@@ -66,14 +66,14 @@
 
 .cage-split {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 180px;
+  height: 180px;
 }
 
 .cage-half {
   position: absolute;
-  width: 140px;
-  height: 70px;
+  width: 180px;
+  height: 90px;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
   border-left: 4px solid #000000;
   border-right: 4px solid #000000;
@@ -88,36 +88,50 @@
 .cage-top {
   top: 0;
   border-top: 4px solid #000000;
-  border-radius: 70px 70px 0 0;
+  border-radius: 90px 90px 0 0;
   transform-origin: center bottom;
 }
 
 .cage-bottom {
   bottom: 0;
   border-bottom: 4px solid #000000;
-  border-radius: 0 0 70px 70px;
+  border-radius: 0 0 90px 90px;
   transform-origin: center top;
 }
 
-.cage-inner-half {
-  width: 110px;
-  height: 55px;
+.cage-inner-half-top {
+  width: 120px;
+  height: 60px;
   background: radial-gradient(circle at 50% 50%, #ffed4e, #ffd700);
+  border-radius: 60px 60px 0 0;
+   border: 3px solid rgba(0, 0, 0, 0.2);
+   border-bottom: none;
+}
+
+.cage-inner-half-bottom {
+  width: 120px;
+  height: 60px;
+  background: radial-gradient(circle at 50% 50%, #ffed4e, #ffd700);
+  border-radius: 0 0 60px 60px;
+   border: 3px solid rgba(0, 0, 0, 0.2);
+   border-top: none;
 }
 
 .team-reveal {
-  position: absolute;
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  color: #000000;
+  color: rgba(255, 215, 0, 0.8);
   padding: 20px 30px;
   border-radius: 12px;
   font-size: 20px;
   font-weight: bold;
   text-align: center;
-  border: 3px solid #000000;
-  box-shadow:
-    0 0 30px rgba(255, 215, 0, 0.8),
-    0 8px 20px rgba(0, 0, 0, 0.4);
   max-width: 200px;
   word-wrap: break-word;
+  max-lines: 3;
+  text-overflow: ellipsis;
+  align-self: center;
+  vertical-align: middle;
+  justify-content: center;
+  flex: 1;
+  height: 100%;
+  align-content: center;
 }

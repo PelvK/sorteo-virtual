@@ -1,26 +1,28 @@
 .zone-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  justify-content: center;
+  align-items: stretch; /* asegura misma altura si el contenido difiere */
+  width: 100%;
   gap: 30px;
   padding: 20px;
-  max-width: 1400px;
   margin: 0 auto;
+  flex-wrap: nowrap; /* 👈 fuerza que estén todas en una sola fila */
 }
 
 @media (min-width: 768px) {
   .zone-grid {
-    grid-template-columns: repeat(2, 1fr);
+    flex-direction: row;
   }
 }
 
 @media (min-width: 1200px) {
   .zone-grid {
-    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
   }
 }
 
 @media (min-width: 1600px) {
   .zone-grid {
-    grid-template-columns: repeat(4, 1fr);
+    flex-direction: row;
   }
 }

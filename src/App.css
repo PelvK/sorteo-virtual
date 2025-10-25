@@ -21,10 +21,8 @@ body {
 }
 
 .app-header {
-  padding: 30px 20px;
+  padding: 70px 50px 0px 50px;
   text-align: center;
-  border-bottom: 3px solid rgba(255, 215, 0, 0.3);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,6 +51,10 @@ body {
 }
 
 .ball-cages-container {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,8 +62,7 @@ body {
   flex-wrap: wrap;
   padding: 40px 20px;
   background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
-  border-top: 2px solid rgba(255, 215, 0, 0.2);
-  border-bottom: 2px solid rgba(255, 215, 0, 0.2);
+  z-index: 100;
 }
 
 @media (max-width: 768px) {
@@ -88,7 +89,7 @@ body {
   background: rgba(255, 215, 0, 0.1);
   padding: 12px 24px;
   border-radius: 8px;
-  border: 2px solid rgba(255, 215, 0, 0.3);
+  border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
 .category-selector label {
@@ -101,7 +102,6 @@ body {
 .category-selector select {
   background: rgba(0, 0, 0, 0.6);
   color: #ffd700;
-  border: 2px solid rgba(255, 215, 0, 0.5);
   padding: 8px 16px;
   border-radius: 6px;
   font-size: 16px;
@@ -112,7 +112,6 @@ body {
 
 .category-selector select:hover:not(:disabled) {
   background: rgba(0, 0, 0, 0.8);
-  border-color: #ffd700;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
 }
 

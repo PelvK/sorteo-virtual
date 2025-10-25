@@ -2,10 +2,16 @@
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 3px solid #ffd700;
   border-radius: 16px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 215, 0, 0.2);
   transition: transform 0.3s ease;
+  box-sizing: border-box;
+  .zone-card {
+  flex: 1;
+  max-width: calc((100% - (30px * (var(--card-count) - 1))) / var(--card-count));
 }
+}
+
 
 .zone-card:hover {
   transform: translateY(-5px);
@@ -20,7 +26,6 @@
   margin: 0 0 20px 0;
   text-transform: uppercase;
   letter-spacing: 2px;
-  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
 }
 
 .zone-card-rows {
@@ -46,6 +51,12 @@
   font-weight: 600;
   text-align: center;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+ display: -webkit-box;             /* crea una caja flexible vertical */
+  -webkit-box-orient: vertical;     /* orientación vertical */
+  -webkit-line-clamp: 2;            /* máximo 2 líneas */
+  line-clamp: 2;                    /* estándar para máximo 2 líneas */
+  overflow: hidden;                 /* oculta el exceso de texto */
+  text-overflow: ellipsis; 
 }
 
 .empty-slot {

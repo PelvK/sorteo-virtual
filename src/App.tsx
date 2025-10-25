@@ -6,6 +6,7 @@ import { CategoryConfigPanel } from './components/CategoryConfig';
 import { DrawConfig, Zone, CategoryConfig } from './types';
 import { supabase } from './lib/supabase';
 import './App.css';
+import { BACKGROUND_BALL_IMAGE } from './const';
 
 const CATEGORY_CONFIGS: CategoryConfig[] = [
   { year: 2010, numZones: 6, ballCageTeams: [6, 6, 6, 6] },
@@ -235,7 +236,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1 className="app-title">Sorteo de Equipos por Categoría</h1>
+        <h1 className="app-title">Sorteo de equipos "Torneo Sarmientito 2025"</h1>
         <div className="category-selector">
           <label htmlFor="category">Categoría:</label>
           <select
@@ -264,6 +265,7 @@ function App() {
               isActive={activeCage === cageNum}
               currentTeam={activeCage === cageNum ? currentTeam : null}
               onAnimationComplete={handleAnimationComplete}
+              backgroundImage={BACKGROUND_BALL_IMAGE}
             />
           ))}
         </div>
