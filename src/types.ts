@@ -15,6 +15,7 @@ export interface DrawConfig {
   ballCages: Team[][];
   drawOrder: string[];
   category?: number;
+  drawMode?: 'manual' | 'random';
 }
 
 export interface CategoryConfig {

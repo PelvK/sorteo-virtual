@@ -20,12 +20,18 @@ export function ControlPanel({
 }: ControlPanelProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [numZones, setNumZones] = useState(config.numZones);
+  const [drawMode, setDrawMode] = useState<'manual' | 'random'>(config.drawMode || 'manual');
 
   const handleNumZonesChange = (value: number) => {
     if (value >= 4 && value <= 8) {
       setNumZones(value);
       onConfigChange({ ...config, numZones: value });
     }
+  };
+
+  const handleDrawModeChange = (mode: 'manual' | 'random') => {
+    setDrawMode(mode);
+    onConfigChange({ ...config, drawMode: mode });
   };
 
   const handleAddTeam = (cageIndex: number) => {
@@ -121,6 +127,34 @@ export function ControlPanel({
               </section>
 
               <section className="config-section">
+                <h3>Modo de Sorteo</h3>
+                <div className="draw-mode-selector">
+                  <label className="radio-option">
+                    <input
+                      type="radio"
+                      name="drawMode"
+                      value="manual"
+                      checked={drawMode === 'manual'}
+                      onChange={() => handleDrawModeChange('manual')}
+                      disabled={isDrawing}
+                    />
+                    <span>Manual (orden personalizado)</span>
+                  </label>
+                  <label className="radio-option">
+                    <input
+                      type="radio"
+                      name="drawMode"
+                      value="random"
+                      checked={drawMode === 'random'}
+                      onChange={() => handleDrawModeChange('random')}
+                      disabled={isDrawing}
+                    />
+                    <span>Aleatorio (sorteo automático)</span>
+                  </label>
+                </div>
+              </section>
+
+              <section className="config-section">
                 <h3>Equipos por Bolillero</h3>
                 <div className="ball-cages-config">
                   {config.ballCages.map((cage, cageIndex) => (
@@ -152,9 +186,10 @@ export function ControlPanel({
                 </div>
               </section>
 
-              <section className="config-section">
-                <h3>Orden de Sorteo</h3>
-                <div className="draw-order-list">
+              {drawMode === 'manual' && (
+                <section className="config-section">
+                  <h3>Orden de Sorteo</h3>
+                  <div className="draw-order-list">
                   {config.drawOrder.map((teamId, index) => {
                     const team = getAllTeams().find(t => t.id === teamId);
                     if (!team) return null;
@@ -183,13 +218,14 @@ export function ControlPanel({
                       </div>
                     );
                   })}
-                </div>
-              </section>
+                  </div>
+                </section>
+              )}
 
               <div className="control-actions">
                 <button
                   onClick={onStartDraw}
-                  disabled={isDrawing || config.drawOrder.length === 0}
+                  disabled={isDrawing || (drawMode === 'manual' && config.drawOrder.length === 0) || config.ballCages.flat().length === 0}
                   className="start-button"
                 >
                   {isDrawing ? 'Sorteando...' : 'Iniciar Sorteo'}

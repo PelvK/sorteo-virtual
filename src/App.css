@@ -92,6 +92,46 @@ body {
   border: 1px solid rgba(255, 215, 0, 0.3);
 }
 
+.category-play-button,
+.category-stop-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.category-play-button {
+  color: #00ff00;
+}
+
+.category-play-button:hover:not(:disabled) {
+  background: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  transform: scale(1.05);
+}
+
+.category-stop-button {
+  color: #ff3333;
+}
+
+.category-stop-button:hover:not(:disabled) {
+  background: rgba(255, 51, 51, 0.2);
+  box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+  transform: scale(1.05);
+}
+
+.category-play-button:disabled,
+.category-stop-button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .category-selector label {
   color: #ffd700;
   font-size: 16px;
@@ -136,9 +176,10 @@ body {
   }
 
   .category-selector {
-    flex-direction: column;
+    flex-wrap: wrap;
     gap: 8px;
     padding: 10px 16px;
+    justify-content: center;
   }
 
   .category-selector label {
@@ -148,5 +189,10 @@ body {
   .category-selector select {
     font-size: 14px;
     padding: 6px 12px;
+  }
+
+  .category-play-button,
+  .category-stop-button {
+    padding: 6px;
   }
 }
