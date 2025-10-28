@@ -1,12 +1,12 @@
 .zone-grid {
   display: flex;
   justify-content: center;
-  align-items: stretch; /* asegura misma altura si el contenido difiere */
+  align-items: stretch;
   width: 100%;
   gap: 30px;
-  padding: 20px;
+  padding: 20px 40px 20px 40px;
   margin: 0 auto;
-  flex-wrap: nowrap; /* 👈 fuerza que estén todas en una sola fila */
+  flex-wrap: nowrap;
 }
 
 @media (min-width: 768px) {

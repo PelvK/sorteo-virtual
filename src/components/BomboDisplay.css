@@ -1,0 +1,65 @@
+.bombo-display {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 12px;
+  margin: 2rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.bombo-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bombo-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #4fc3f7;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(79, 195, 247, 0.3);
+}
+
+.bombo-teams {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.bombo-team {
+  padding: 0.6rem 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.bombo-team.drawn {
+  background: rgba(255, 87, 87, 0.15);
+  color: #999;
+  text-decoration: line-through;
+  border-color: rgba(255, 87, 87, 0.3);
+  opacity: 0.6;
+}
+
+@media (max-width: 1200px) {
+  .bombo-display {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .bombo-display {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+  }
+}

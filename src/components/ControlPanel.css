@@ -46,9 +46,9 @@
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
   border: 3px solid #ffd700;
   border-radius: 20px;
-  width: 100%;
-  max-width: 900px;
-  max-height: 90vh;
+  width: 80%;
+  max-width: 1200px;
+  max-height: 80vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;

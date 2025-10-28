@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from "react";
-import { Play, Square } from "lucide-react";
+import { Play, Square, Users } from "lucide-react";
 import { ZoneGrid } from "./components/ZoneGrid";
 import { BallCage } from "./components/BallCage";
 import { ControlPanel } from "./components/ControlPanel";
 import { CategoryConfigPanel } from "./components/CategoryConfig";
+import { GroupsDisplay } from "./components/GroupsDisplay";
 import { DrawConfig, Zone, CategoryConfig } from "./types";
 import { supabase } from "./lib/supabase";
 import "./App.css";
@@ -41,6 +42,7 @@ function App() {
     useState<CategoryConfig[]>(CATEGORY_CONFIGS);
   const [currentDrawOrder, setCurrentDrawOrder] = useState<string[]>([]);
   const [optionVisible, setOptionVisible] = useState<boolean>(false);
+  const [showGroups, setShowGroups] = useState<boolean>(false);
 
   useEffect(() => {
     loadCategoryConfigs();
@@ -139,7 +141,6 @@ function App() {
         ball_cages: newConfig.ballCages,
         draw_order: newConfig.drawOrder,
         category: newConfig.category || currentCategory,
-        draw_mode: newConfig.drawMode || "manual",
       });
 
       if (error) throw error;
@@ -183,9 +184,11 @@ function App() {
 
     let orderToUse: string[];
     if (config.drawMode === "random") {
-      const allTeams = config.ballCages.flat();
-      const shuffledTeams = [...allTeams].sort(() => Math.random() - 0.5);
-      orderToUse = shuffledTeams.map((t) => t.id);
+      orderToUse = [];
+      config.ballCages.forEach((cage) => {
+        const shuffledCage = [...cage].sort(() => Math.random() - 0.5);
+        orderToUse.push(...shuffledCage.map((t) => t.id));
+      });
     } else {
       orderToUse = config.drawOrder;
     }
@@ -281,8 +284,21 @@ function App() {
             disabled={isDrawing}
           >
             {categoryConfigs.map((cat) => (
-              <option key={cat.year} value={cat.year}>
-                {cat.year}
+              <option
+                key={cat.year}
+                value={
+                  cat.year === 15
+                    ? "SUB-15"
+                    : cat.year === 12
+                    ? "SUB-12"
+                    : String(cat.year)
+                }
+              >
+                {cat.year === 15
+                  ? "SUB-15"
+                  : cat.year === 12
+                  ? "SUB-12"
+                  : cat.year}
               </option>
             ))}
           </select>
@@ -306,12 +322,19 @@ function App() {
           >
             <Square size={20} />
           </button>
+          <button
+            onClick={() => setShowGroups(!showGroups)}
+            disabled={isDrawing}
+            className="category-groups-button"
+            title="Mostrar Grupos"
+          >
+            <Users size={20} />
+          </button>
         </div>
       </header>
 
       <main className="app-main">
         <ZoneGrid zones={zones} />
-
         <div className="ball-cages-container">
           {[1, 2, 3, 4].map((cageNum) => (
             <BallCage
@@ -342,6 +365,12 @@ function App() {
             isDrawing={isDrawing}
           />
         </>
+      )}
+
+      {showGroups && (
+        <div onClick={() => setShowGroups(false)}>
+          <GroupsDisplay config={config} />
+        </div>
       )}
     </div>
   );
