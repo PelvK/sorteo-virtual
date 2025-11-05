@@ -13,77 +13,62 @@ body {
 }
 
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #000000 100%);
   color: #ffffff;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
 }
 
 .app-header {
-  padding: 70px 50px 0px 50px;
+  padding: clamp(10px, 2vh, 30px) clamp(10px, 3vw, 50px);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: clamp(8px, 1.5vh, 20px);
+  z-index: 10;
 }
 
 .app-title {
   color: #ffd700;
-  font-size: 42px;
+  font-size: clamp(18px, 3vw, 42px);
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 3px;
+  letter-spacing: clamp(1px, 0.2vw, 3px);
   text-shadow:
     0 0 20px rgba(255, 215, 0, 0.6),
     0 0 40px rgba(255, 215, 0, 0.4),
     0 4px 8px rgba(0, 0, 0, 0.5);
   margin: 0;
+  line-height: 1.2;
 }
 
 .app-main {
-  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0px 20px 0px 20px;
-  margin-bottom: 300px;
-  gap: 40px;
+  padding: clamp(10px, 2vh, 20px) clamp(10px, 2vw, 20px);
+  overflow: hidden;
+  min-height: 0;
 }
 
 .ball-cages-container {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: clamp(15px, 3vw, 40px);
   flex-wrap: wrap;
-  padding: 40px 20px;
+  padding: clamp(20px, 2vh, 20px) clamp(10px, 2vw, 20px);
   background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.5) 50%, transparent 100%);
-  z-index: 100;
+  width: 100%;
+  z-index: 10;
 }
 
-@media (max-width: 768px) {
-  .app-title {
-    font-size: 28px;
-    letter-spacing: 2px;
-  }
-
-  .app-main {
-    padding: 20px 10px 160px 10px;
-    gap: 40px;
-  }
-
-  .ball-cages-container {
-    gap: 30px;
-    padding: 30px 10px;
-  }
-}
 
 .category-selector {
   display: flex;
@@ -149,17 +134,18 @@ body {
 
 .category-selector label {
   color: #ffd700;
-  font-size: 16px;
+  font-size: clamp(12px, 1.5vw, 16px);
   font-weight: 600;
-  letter-spacing: 1px;
+  letter-spacing: clamp(0.5px, 0.1vw, 1px);
 }
 
 .category-selector select {
   background: rgba(0, 0, 0, 0.6);
   color: #ffd700;
-  padding: 8px 16px;
+  padding: clamp(4px, 1vh, 8px) clamp(8px, 1.5vw, 16px);
   border-radius: 6px;
-  font-size: 16px;
+  border: none;
+  font-size: clamp(12px, 1.5vw, 16px);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -180,35 +166,17 @@ body {
   color: #ffd700;
 }
 
-@media (max-width: 480px) {
-  .app-title {
-    font-size: 22px;
-    letter-spacing: 1px;
-  }
-
-  .ball-cages-container {
-    gap: 20px;
-  }
-
+@media (max-width: 768px) {
   .category-selector {
     flex-wrap: wrap;
     gap: 8px;
-    padding: 10px 16px;
+    padding: 8px 12px;
     justify-content: center;
   }
+}
 
-  .category-selector label {
-    font-size: 14px;
-  }
-
-  .category-selector select {
-    font-size: 14px;
-    padding: 6px 12px;
-  }
-
-  .category-play-button,
-  .category-stop-button,
-  .category-groups-button {
-    padding: 6px;
+@media (max-width: 480px) {
+  .app {
+    grid-template-rows: auto 1fr auto;
   }
 }

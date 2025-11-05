@@ -2,33 +2,36 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: clamp(5px, 1vh, 10px);
+  flex-shrink: 0;
 }
 
 .cage-label {
   color: #ffd700;
-  font-size: 16px;
+  font-size: clamp(12px, 1.5vw, 16px);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: clamp(0.5px, 0.1vw, 1px);
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+  white-space: nowrap;
 }
 
 .ball-cage {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: clamp(100px, 15vw, 180px);
+  height: clamp(100px, 15vw, 180px);
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
 }
 
 .cage-circle {
-  width: 180px;
-  height: 180px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-  border: 4px solid #000000;
+  border: clamp(2px, 0.4vw, 4px) solid #000000;
   box-shadow:
     0 0 20px rgba(255, 215, 0, 0.6),
     inset 0 0 20px rgba(0, 0, 0, 0.3),
@@ -47,14 +50,14 @@
 }
 
 .cage-inner {
-  width: 120px;
-  height: 120px;
+  width: 67%;
+  height: 67%;
   border-radius: 50%;
   display: flex;
   background: transparent;
   align-items: center;
   justify-content: center;
-  border: 3px solid rgba(0, 0, 0, 0.2);
+  border: clamp(2px, 0.3vw, 3px) solid rgba(0, 0, 0, 0.2);
 }
 
 .cage-number {
@@ -66,17 +69,17 @@
 
 .cage-split {
   position: relative;
-  width: 180px;
-  height: 180px;
+  width: 100%;
+  height: 100%;
 }
 
 .cage-half {
   position: absolute;
-  width: 180px;
-  height: 90px;
+  width: 100%;
+  height: 50%;
   background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
-  border-left: 4px solid #000000;
-  border-right: 4px solid #000000;
+  border-left: clamp(2px, 0.4vw, 4px) solid #000000;
+  border-right: clamp(2px, 0.4vw, 4px) solid #000000;
   box-shadow:
     0 0 20px rgba(255, 215, 0, 0.6),
     inset 0 0 10px rgba(0, 0, 0, 0.3);
@@ -87,44 +90,44 @@
 
 .cage-top {
   top: 0;
-  border-top: 4px solid #000000;
-  border-radius: 90px 90px 0 0;
+  border-top: clamp(2px, 0.4vw, 4px) solid #000000;
+  border-radius: 50% 50% 0 0;
   transform-origin: center bottom;
 }
 
 .cage-bottom {
   bottom: 0;
-  border-bottom: 4px solid #000000;
-  border-radius: 0 0 90px 90px;
+  border-bottom: clamp(2px, 0.4vw, 4px) solid #000000;
+  border-radius: 0 0 50% 50%;
   transform-origin: center top;
 }
 
 .cage-inner-half-top {
-  width: 120px;
-  height: 60px;
+  width: 67%;
+  height: 100%;
   background: radial-gradient(circle at 50% 50%, #ffed4e, #ffd700);
-  border-radius: 60px 60px 0 0;
-   border: 3px solid rgba(0, 0, 0, 0.2);
-   border-bottom: none;
+  border-radius: 50% 50% 0 0;
+  border: clamp(2px, 0.3vw, 3px) solid rgba(0, 0, 0, 0.2);
+  border-bottom: none;
 }
 
 .cage-inner-half-bottom {
-  width: 120px;
-  height: 60px;
+  width: 67%;
+  height: 100%;
   background: radial-gradient(circle at 50% 50%, #ffed4e, #ffd700);
-  border-radius: 0 0 60px 60px;
-   border: 3px solid rgba(0, 0, 0, 0.2);
-   border-top: none;
+  border-radius: 0 0 50% 50%;
+  border: clamp(2px, 0.3vw, 3px) solid rgba(0, 0, 0, 0.2);
+  border-top: none;
 }
 
 .team-reveal {
   color: rgba(255, 215, 0, 0.8);
-  padding: 20px 30px;
-  border-radius: 12px;
-  font-size: 20px;
+  padding: clamp(10px, 2vw, 20px) clamp(15px, 3vw, 30px);
+  border-radius: clamp(6px, 1vw, 12px);
+  font-size: clamp(14px, 2vw, 20px);
   font-weight: bold;
   text-align: center;
-  max-width: 300px;
+  max-width: 80vw;
   word-wrap: break-word;
   align-self: center;
   vertical-align: middle;

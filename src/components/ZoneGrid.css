@@ -3,26 +3,11 @@
   justify-content: center;
   align-items: stretch;
   width: 100%;
-  gap: 30px;
-  padding: 20px 40px 20px 40px;
-  margin: 0 auto;
+  height: 100%;
+  gap: clamp(10px, 2vw, 30px);
+  padding: clamp(10px, 2vh, 20px) clamp(10px, 2vw, 20px);
+  margin: 0;
   flex-wrap: nowrap;
-}
-
-@media (min-width: 768px) {
-  .zone-grid {
-    flex-direction: row;
-  }
-}
-
-@media (min-width: 1200px) {
-  .zone-grid {
-    flex-direction: row;
-  }
-}
-
-@media (min-width: 1600px) {
-  .zone-grid {
-    flex-direction: row;
-  }
+  overflow: visible;
+  min-height: 0;
 }
