@@ -43,7 +43,9 @@ function App() {
   const [currentDrawOrder, setCurrentDrawOrder] = useState<string[]>([]);
   const [optionVisible, setOptionVisible] = useState<boolean>(false);
   const [showGroups, setShowGroups] = useState<boolean>(false);
-  const [completedDraws, setCompletedDraws] = useState<Record<number, Zone[]>>({});
+  const [completedDraws, setCompletedDraws] = useState<Record<number, Zone[]>>(
+    {}
+  );
 
   useEffect(() => {
     loadCategoryConfigs();
@@ -254,9 +256,9 @@ function App() {
       const nextIndex = currentDrawIndex + 1;
       if (nextIndex >= currentDrawOrder.length) {
         setTimeout(() => {
-          setCompletedDraws(prev => ({
+          setCompletedDraws((prev) => ({
             ...prev,
-            [currentCategory]: updatedZones
+            [currentCategory]: updatedZones,
           }));
         }, 0);
       }
@@ -278,7 +280,7 @@ function App() {
     setActiveCage(null);
     setCurrentTeam(null);
 
-    setCompletedDraws(prev => {
+    setCompletedDraws((prev) => {
       const updated = { ...prev };
       delete updated[currentCategory];
       return updated;
@@ -306,13 +308,7 @@ function App() {
             {categoryConfigs.map((cat) => (
               <option
                 key={cat.year}
-                value={
-                  cat.year === 15
-                    ? "SUB-15"
-                    : cat.year === 12
-                    ? "SUB-12"
-                    : String(cat.year)
-                }
+                value={cat.year}
               >
                 {cat.year === 15
                   ? "SUB-15"
@@ -356,16 +352,33 @@ function App() {
       <main className="app-main">
         <ZoneGrid zones={zones} />
         <div className="ball-cages-container">
-          {[1, 2, 3, 4].map((cageNum) => (
-            <BallCage
-              key={cageNum}
-              cageNumber={cageNum}
-              isActive={activeCage === cageNum}
-              currentTeam={activeCage === cageNum ? currentTeam : null}
-              onAnimationComplete={handleAnimationComplete}
-              backgroundImage={BACKGROUND_BALL_IMAGE}
-            />
-          ))}
+          {currentCategory == 15 || currentCategory == 12 ? (
+            <>
+              {[1].map((cageNum) => (
+                <BallCage
+                  key={cageNum}
+                  cageNumber={cageNum}
+                  isActive={activeCage === cageNum}
+                  currentTeam={activeCage === cageNum ? currentTeam : null}
+                  onAnimationComplete={handleAnimationComplete}
+                  backgroundImage={BACKGROUND_BALL_IMAGE}
+                />
+              ))}
+            </>
+          ) : (
+            <>
+              {[1, 2, 3, 4].map((cageNum) => (
+                <BallCage
+                  key={cageNum}
+                  cageNumber={cageNum}
+                  isActive={activeCage === cageNum}
+                  currentTeam={activeCage === cageNum ? currentTeam : null}
+                  onAnimationComplete={handleAnimationComplete}
+                  backgroundImage={BACKGROUND_BALL_IMAGE}
+                />
+              ))}
+            </>
+          )}
         </div>
       </main>
 

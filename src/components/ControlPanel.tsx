@@ -23,7 +23,7 @@ export function ControlPanel({
   const [drawMode, setDrawMode] = useState<'manual' | 'random'>(config.drawMode || 'manual');
 
   const handleNumZonesChange = (value: number) => {
-    if (value >= 4 && value <= 8) {
+    if (value >= 2 && value <= 8) {
       setNumZones(value);
       onConfigChange({ ...config, numZones: value });
     }

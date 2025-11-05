@@ -23,7 +23,7 @@ export function CategoryConfigPanel({
   }, [categories]);
 
   const handleNumZonesChange = (year: number, numZones: number) => {
-    if (numZones >= 4 && numZones <= 8) {
+    if (numZones >= 2 && numZones <= 8) {
       setEditingCategories(prev =>
         prev.map(cat =>
           cat.year === year ? { ...cat, numZones } : cat
@@ -99,14 +99,14 @@ export function CategoryConfigPanel({
                       <input
                         id={`zones-${cat.year}`}
                         type="number"
-                        min="4"
+                        min="2"
                         max="8"
                         value={cat.numZones}
                         onChange={(e) =>
                           handleNumZonesChange(cat.year, parseInt(e.target.value))
                         }
                       />
-                      <span className="zone-hint">(4-8)</span>
+                      <span className="zone-hint">(2-8)</span>
                     </div>
                   </div>
                 ))}
