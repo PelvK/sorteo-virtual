@@ -43,15 +43,20 @@ function App() {
   const [currentDrawOrder, setCurrentDrawOrder] = useState<string[]>([]);
   const [optionVisible, setOptionVisible] = useState<boolean>(false);
   const [showGroups, setShowGroups] = useState<boolean>(false);
+  const [completedDraws, setCompletedDraws] = useState<Record<number, Zone[]>>({});
 
   useEffect(() => {
     loadCategoryConfigs();
   }, []);
 
   useEffect(() => {
-    initializeZones(config.numZones);
+    if (completedDraws[currentCategory]) {
+      setZones(completedDraws[currentCategory]);
+    } else {
+      initializeZones(config.numZones);
+    }
     loadConfig(currentCategory);
-  }, [currentCategory]);
+  }, [currentCategory, completedDraws]);
 
   useEffect(() => {
     if (zones.length !== config.numZones) {
@@ -156,7 +161,6 @@ function App() {
 
   const handleCategoryChange = (category: number) => {
     setCurrentCategory(category);
-    handleReset();
   };
 
   const handleCategoryConfigsChange = (newConfigs: CategoryConfig[]) => {
@@ -246,6 +250,16 @@ function App() {
       });
 
       setZones(updatedZones);
+
+      const nextIndex = currentDrawIndex + 1;
+      if (nextIndex >= currentDrawOrder.length) {
+        setTimeout(() => {
+          setCompletedDraws(prev => ({
+            ...prev,
+            [currentCategory]: updatedZones
+          }));
+        }, 0);
+      }
     }
 
     setTimeout(() => {
@@ -263,6 +277,12 @@ function App() {
     setIsDrawing(false);
     setActiveCage(null);
     setCurrentTeam(null);
+
+    setCompletedDraws(prev => {
+      const updated = { ...prev };
+      delete updated[currentCategory];
+      return updated;
+    });
   };
 
   const handleTitleClick = useCallback(() => {
